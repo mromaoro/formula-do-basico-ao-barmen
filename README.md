@@ -1,69 +1,57 @@
-# React + TypeScript + Vite
+## Fórmula do Básico ao Barman — Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Landing page construída com React + Vite + TypeScript e Tailwind CSS v4, seguindo o layout e a copy dos PDFs anexos (Oferta/Produto/Layout). Foco em conversão, com CTA claro, mecanismo único e lista de entregáveis e bônus.
 
-Currently, two official plugins are available:
+### Stack
+- React 19 + Vite 7 + TypeScript
+- Tailwind CSS v4 (via `@tailwindcss/postcss`) + Typography plugin
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Como rodar
 
-## Expanding the ESLint configuration
+Requisitos: Node 18+.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Instalar dependências
+```powershell
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Rodar em desenvolvimento
+```powershell
+npm run dev
 ```
+Abra http://localhost:5173
+
+3. Build de produção
+```powershell
+npm run build
+npm run preview
+```
+
+## Estrutura principal
+- `src/App.tsx`: layout da página (Hero, Mecanismo Único, O que é, Entregáveis, Bônus, CTA).
+- `src/index.css`: importa Tailwind v4 e plugins, define fontes e referências de conteúdo.
+- `index.html`: meta tags e hook do React.
+
+## Tailwind v4 (importante)
+Este projeto usa Tailwind v4 com PostCSS:
+- Configuração em `postcss.config.js` usando `@tailwindcss/postcss` e `autoprefixer`.
+- As utilities estão disponíveis via `@import "tailwindcss";` no `src/index.css`.
+- O plugin Typography é habilitado com `@plugin "@tailwindcss/typography";`.
+
+Se aparecer erro de classe desconhecida, reinicie o `npm run dev` após mudanças grandes no CSS.
+
+## Customização de design
+- Paleta orientada a drinks/hospitalidade; ajuste classes Tailwind em `App.tsx` (cores, sombras, gradientes).
+- Imagens dummy: troque os placeholders (`https://images.unsplash.com/...`) por imagens próprias na pasta `public/` ou CDN.
+- Tipografia: ajuste fontes no `index.css` (variáveis `--font-display`/`--font-body`) e classes em títulos/paragraphs.
+
+## Deploy (GitHub Pages)
+Opção simples com GitHub Pages (SPA):
+1. Adicione `"homepage": "."` no `package.json` (para paths relativos).
+2. Faça o build: `npm run build`.
+3. Publique o conteúdo de `dist/` no branch `gh-pages` (manualmente ou com Action):
+  - via CLI: `npx gh-pages -d dist` (requer instalar `gh-pages`).
+  - ou crie uma GitHub Action de deploy (Pages) apontando para `dist`.
+
+## Licença
+Uso interno do projeto/formato de landing. Ajuste conforme necessidade.
